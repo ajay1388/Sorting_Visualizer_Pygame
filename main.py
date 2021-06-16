@@ -128,8 +128,8 @@ def main():
                         mergeSort(0, len(arr) - 1)
                         drawgrid()
                         col_all()
-                        draw_back(320, 53, 260, 45)
-                        draw_box(320, 53, 260, 45, red)
+                        draw_back(640, 53, 205, 45)
+                        draw_box(640, 53, 205, 45, red)
                     elif 900 <= pos[0] <= 1105:
                         quicksort(0, len(arr) - 1)
                         drawgrid()
@@ -157,8 +157,10 @@ def bubblesort():
     global arr, screen, clock, vis
     clock = pygame.time.Clock()
     for i in range(0, len(arr) - 1):
+        f = 0
         for j in range(0, len(arr) - 1 - i):
             if arr[j] > arr[j + 1]:
+                f = 1
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
             for eve in pygame.event.get():
                 if eve.type == pygame.WINDOWCLOSE:
@@ -174,6 +176,8 @@ def bubblesort():
             draw_box(50, 53, 210, 45, red)
             pygame.display.update()
             pygame.time.delay(block_size)
+        if f==0:
+            return
 
 
 def selectionsort():
@@ -206,6 +210,8 @@ def mergeSort(l, r):
         mergeSort(l, mid)
         mergeSort(mid + 1, r)
         merge(l, mid, r)
+        if arr == sorted(arr):
+            return
         for eve in pygame.event.get():
             if eve.type == pygame.WINDOWCLOSE:
                 pygame.display.quit()
@@ -301,8 +307,14 @@ def merge(l, m, r):
 def quicksort(l, r):
     if l < r:
         m = partition(l, r)
+        if arr==sorted(arr):
+            return
         quicksort(l, m - 1)
+        if arr==sorted(arr):
+            return
         quicksort(m + 1, r)
+        if arr==sorted(arr):
+            return
 
 
 def partition(l, r):
